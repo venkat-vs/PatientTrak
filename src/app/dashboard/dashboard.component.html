@@ -1,0 +1,213 @@
+<div class="container">
+    <div style="margin-left: 50px">      
+        <div class="row">
+          <div class="wrapper center-block col-md-9">
+              <h1 class="site-title">Cases</h1>
+            <div
+              class="panel-group"
+              id="accordion"
+              role="tablist"
+              aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading active" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a
+                      role="button"
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      href="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      Completed Cases over the past 7 days
+                    </a>
+                  </h4>
+                </div>
+                <div
+                  id="collapseOne"
+                  class="panel-collapse collapse in"
+                  role="tabpanel"
+                  aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    <app-card></app-card>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a
+                      class="collapsed"
+                      role="button"
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      href="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      Current Cases
+                    </a>
+                  </h4>
+                </div>
+                <div
+                  id="collapseTwo"
+                  class="panel-collapse in"
+                  role="tabpanel"
+                  aria-labelledby="headingTwo"
+                >
+                  <div class="panel-body">
+                    <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                          <a
+                            class="collapsed"
+                            role="button"
+                            data-toggle="collapse"
+                            data-parent="#accordion"
+                            href="#collapseThree"
+                            aria-expanded="false"
+                            aria-controls="collapseThree"
+                          >
+                            Filter Options
+                          </a>
+                        </h4>
+                      </div>
+                      <div
+                        id="collapseThree"
+                        class="panel-collapse in"
+                        role="tabpanel"
+                        aria-labelledby="headingThree"
+                      >
+                        <div class="panel-body" style="margin-left: 50px;">
+                          <div class="row status col-md-12">
+                            <div style="padding:2px">
+                              <h3><b>Service Types:</b></h3>
+                            </div>
+                            <div class="box BV"></div>
+                            <label>Benefits Verification</label>
+                            <div class="box PA"></div>
+                            <label>Prior Authorization</label>
+                            <div class="box CoPay"></div>
+                            <label>CoPay</label>
+                            <div class="box PAP"></div>
+                            <label>PAP</label>
+                            <div class="box PR"></div>
+                            <label>Prescription Referral</label>
+                          </div>
+                          <div
+                            class="row status col-md-6"
+                            style="margin-top:20px;margin-left:200px; margin-bottom: 10px"
+                          >
+                            <div style="padding:2px">
+                              <h3><b>Status Key:</b></h3>
+                            </div>
+                            <div>
+                              <img
+                                src="../../assets/Images/green.png"
+                                class="imgCustom"
+                              />
+                            </div>
+                            <label>Completed</label>
+                            <div>
+                              <img
+                                src="../../assets/Images/blue.jpg"
+                                class="imgCustom"
+                              />
+                            </div>
+                            <label>In-Progress</label>
+                            <div>
+                              <img
+                                src="../../assets/Images/red.jpg"
+                                class="imgCustom"
+                              />
+                            </div>
+                            <label>Action Needed</label>
+                          </div>
+      
+                          <!-- table -->
+                          <div class="table-responsive">
+                            <table class="table table-hover spacing-table">
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let patient of (patients
+                                      | paginate
+                                        : { itemsPerPage: 10, currentPage: p })
+                                  "
+                                >
+                                  <td>
+                                    <img
+                                      src="../../assets/Images/red.jpg"
+                                      *ngIf="patient.service == 'CoPay'"
+                                      alt="patient.service"
+                                    />
+                                    <img
+                                      src="../../assets/Images/green.png"
+                                      *ngIf="patient.service == 'PA'"
+                                      alt="patient.service"
+                                    />
+                                    <img
+                                      src="../../assets/Images/blue.jpg"
+                                      *ngIf="patient.service == 'BV'"
+                                      alt="patient.service"
+                                    />
+                                  </td>
+      
+                                  <td>
+                                    <a href="#">{{ patient.name }}</a>
+                                  </td>
+                                  <td>Patient ID: {{ patient.patientID }}</td>
+                                  <td>Date of Birth: {{ patient.dob }}</td>
+                                  <td>Service ID: {{ patient.serviceID }}</td>
+                                  <td>
+                                    <button
+                                      class="btn CoPay"
+                                      *ngIf="patient.service == 'CoPay'"
+                                    >
+                                      {{ patient.service }}
+                                    </button>
+                                    <button
+                                      class="btn btn-success BV"
+                                      *ngIf="patient.service == 'BV'"
+                                    >
+                                      Benefits Verification
+                                    </button>
+                                    <button
+                                      class="btn PA"
+                                      *ngIf="patient.service == 'PA'"
+                                    >
+                                      Prior Authorization
+                                    </button>
+                                    <button
+                                      class="btn PR"
+                                      *ngIf="patient.service == 'PR'"
+                                    >
+                                      Prescription Referral
+                                    </button>
+                                    <button
+                                      class="btn PAP"
+                                      *ngIf="patient.service == 'PAP'"
+                                    >
+                                      PAP
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div style="text-align: center">
+                            <pagination-controls
+                              (pageChange)="p = $event"
+                            ></pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
